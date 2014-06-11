@@ -15,3 +15,6 @@ gem "fivemat", "~> 1.2.1"
 gem "aruba"
 gem "rspec", "~> 2.14"
 gem "builder", "~> 3.0"
+
+# Optional middleman dependencies, included for tests
+gem 'slim', require: false
