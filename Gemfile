@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
 gem "middleman-cli", :github => "middleman/middleman", :branch => "master"
-gem "middleman-core", :github => "middleman/middleman", :branch => "master"
+# gem "middleman-core", :github => "middleman/middleman", :branch => "master"
+gem "middleman-core", :path => "~/Sites/middleman"
 
 # Specify your gem's dependencies in middleman-sprockets.gemspec
 gemspec
