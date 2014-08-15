@@ -13,7 +13,7 @@ module Middleman
 
     def after_configuration
       ::Compass.configuration do |compass|
-        compass.project_path    = app.source_dir
+        compass.project_path    = app.config[:source]
         compass.environment     = :development
         compass.cache           = false
         compass.sass_dir        = app.config[:css_dir]
