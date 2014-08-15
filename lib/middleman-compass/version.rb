@@ -1,5 +1,5 @@
 module Middleman
   module Compass
-    VERSION = "4.0.0.pre.0"
+    VERSION = "4.0.0.alpha.1"
   end
 end
