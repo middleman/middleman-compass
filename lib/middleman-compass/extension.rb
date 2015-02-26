@@ -4,12 +4,23 @@ module Middleman
   class CompassExtension < Extension
     def initialize(app, options_hash={}, &block)
       require 'compass'
+      @compass_config_callbacks = []
 
       super
+    end
 
-      # Hooks to manually update the compass config after we're
-      # done with it
-      app.define_hook :compass_config
+    def before_configuration
+      app.add_to_config_context :compass_config, &method(:compass_config)
+    end
+
+    def compass_config(&block)
+      @compass_config_callbacks << block
+    end
+
+    def execute_compass_config_callbacks(config)
+      @compass_config_callbacks.each do |b|
+        instance_exec(config, &b)
+      end
     end
 
     def after_configuration
@@ -37,7 +48,7 @@ module Middleman
       end
 
       # Call hook
-      app.run_hook_for :compass_config, app, ::Compass.configuration
+      execute_compass_config_callbacks(::Compass.configuration)
 
       # Tell Tilt to use it as well (for inline sass blocks)
       ::Tilt.register 'sass', CompassSassTemplate
