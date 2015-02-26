@@ -1,8 +1,9 @@
+require 'middleman-core/renderers/sass'
+
 module Middleman
   class CompassExtension < Extension
     def initialize(app, options_hash={}, &block)
-      require 'middleman-core/renderers/sass'
-      require 'compass/core'
+      require 'compass'
 
       super
 

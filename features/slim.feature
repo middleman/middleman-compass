@@ -8,4 +8,4 @@ Feature: Support slim templating language
     When I go to "/sass.html"
     Then I should see "html, body, div"
     When I go to "/error.html"
-    Then I should see "Syntax error"
+    Then I should see "Invalid CSS"
