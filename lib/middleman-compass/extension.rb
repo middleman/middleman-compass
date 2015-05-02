@@ -2,15 +2,14 @@ require 'middleman-core/renderers/sass'
 
 module Middleman
   class CompassExtension < Extension
+    # Expose the `compass_config` method inside config.
+    expose_to_config :compass_config
+
     def initialize(app, options_hash={}, &block)
       require 'compass'
       @compass_config_callbacks = []
 
       super
-    end
-
-    def before_configuration
-      app.add_to_config_context :compass_config, &method(:compass_config)
     end
 
     def compass_config(&block)
