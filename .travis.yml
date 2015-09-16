@@ -1,23 +1,23 @@
+language: ruby
+sudo: false
+cache: bundler
+before_script:
+  - bundle update
 rvm:
   - ruby-head
   - jruby-head
   - jruby-19mode
-  - 2.2
+  - 2.2.2
   - 2.1
   - 2.0
 os:
   - linux
   - osx
-gemfile:
-  - Gemfile
-
-script: "bundle exec rake test"
-
-env: TEST=true
-
 matrix:
   fast_finish: true
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-19mode
     - rvm: jruby-head
+script: "bundle exec rake test"
+env: TEST=true
