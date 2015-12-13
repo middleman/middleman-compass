@@ -15,6 +15,6 @@ Gem::Specification.new do |s|
   s.files = `git ls-files -z`.split("\0")
   s.test_files = `git ls-files -z -- {fixtures,features}/*`.split("\0")
   s.require_paths = ["lib"]
-  s.add_dependency("middleman-core", [">= 4.0.0.rc.1"])
+  s.add_dependency("middleman-core", [">= 4.0.0.rc.2"])
   s.add_dependency('compass', ['>= 1.0.0', '< 2.0.0'])
 end

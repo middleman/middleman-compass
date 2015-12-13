@@ -1,4 +1,34 @@
 require 'middleman-core/renderers/sass'
+require 'compass/import-once'
+
+GLOB = /\*|\[.+\]/
+
+# Hack around broken sass globs when combined with import-once
+# Targets compass-import-once 1.0.4
+# Tracking issue: https://github.com/chriseppstein/compass/issues/1529
+module Compass
+  module ImportOnce
+    module Importer
+      def find_relative(uri, base, options, *args)
+        if uri =~ GLOB
+          force_import = true
+        else
+          uri, force_import = handle_force_import(uri)
+        end
+        maybe_replace_with_dummy_engine(super(uri, base, options, *args), options, force_import)
+      end
+
+      def find(uri, options, *args)
+        if uri =~ GLOB
+          force_import = true
+        else
+          uri, force_import = handle_force_import(uri)
+        end
+        maybe_replace_with_dummy_engine(super(uri, options, *args), options, force_import)
+      end
+    end
+  end
+end
 
 module Middleman
   class CompassExtension < Extension
@@ -56,6 +86,8 @@ module Middleman
       # Tell Tilt to use it as well (for inline scss blocks)
       ::Tilt.register 'scss', CompassScssTemplate
       ::Tilt.prefer(CompassScssTemplate)
+
+      ::Compass::ImportOnce.activate!
     end
 
     # A Compass Sass template for Tilt, adding our options in
