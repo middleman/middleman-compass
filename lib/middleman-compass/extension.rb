@@ -79,6 +79,8 @@ module Middleman
       # Call hook
       execute_compass_config_callbacks(::Compass.configuration)
 
+      ::Sass.load_paths.concat(::Compass.configuration.sass_load_paths)
+      
       # Tell Tilt to use it as well (for inline sass blocks)
       ::Tilt.register 'sass', CompassSassTemplate
       ::Tilt.prefer(CompassSassTemplate)
